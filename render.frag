@@ -13,7 +13,7 @@ uniform float u_time;
 #define END 1000.0
 #define STEPS 100
 #define EPSILON 0.001
-#define FOV 7.0
+#define FOV 7.19
 #define PIXEL (1.0 / u_resolution)
 
 // CAMERA ----------
@@ -75,7 +75,7 @@ float mit_logo(vec3 point) {
 
 // the entire scene
 float scene(vec3 point) {
-    point.z = mod(point.z + 6.0, 12.0) - 6.0;
+    point.z = mod(point.z + 5.0, 11.0) - 5.0;
     return mit_logo(point);
 }
 
@@ -169,10 +169,10 @@ void main() {
 
     vec3 ray = makeRay(FOV, u_resolution.x/u_resolution.y, st);
     vec3 point = vec3(15., -5.5, 5.0) * 10.0;
-    // point.z -= u_time * 5.0;
     vec3 target = vec3(0., -2., 1);
-    // target.z -= u_time * 5.0;
-    mat3 view = look(point, target, normalize(vec3(0.1, 0.5, 0.0)));
+    point.z -= u_time * 5.0;
+    target.z -= u_time * 5.0;
+    mat3 view = look(point, target, normalize(vec3(0.1812, 0.5, 0.0)));
     vec3 dir = view * ray;
     vec3 color = vec3(0.0);
 

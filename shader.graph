@@ -13,6 +13,7 @@
 ; (let more-blur (shader "median" w h scaled))
 
 (let thresh (shader "thresh2" w h blur))
+; (let tiled (shader "tile" w h thresh))
 
 ; (let noise (shader "noise" w h))
 ; (let grid (shader "grid" w h))

@@ -18,14 +18,12 @@ void main() {
         float pix = i * STEP - (BLUR / 2 * STEP);
         #ifdef VERT
             new.x += pix;
+            // new.x = clamp(0., 1., new.x);
         #else
             new.y += pix;
+            // new.y = clamp(0., 1., new.y);
         #endif
 
-        if (mod(new, vec2(1.0)) != new) {
-            total += total / (i + 1);
-            continue;
-        }
 
         total += texture(u_texture_0, new, 0.).r;
     }
