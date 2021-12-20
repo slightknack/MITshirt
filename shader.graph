@@ -1,0 +1,18 @@
+(let w 1000)
+(let h 800)
+
+(let frame  (shader     "render"  w h))
+(let avg    (shader-rec "avg"     w h frame))
+(let scaled (shader     "scale"   w h avg))
+(let blur-x (shader-param
+    ("blur" w h scaled)
+    (ifdef "VERT" #f)))
+(let blur (shader-param
+    ("blur" w h blur-x)
+    (ifdef "VERT" #t)))
+
+(let noise (shader "noise" w h))
+(let grid (shader "grid" w h))
+(let warp (shader "warp" w h noise grid))
+(let thresh (shader "thresh" w h warp blur))
+(output thresh)
