@@ -164,7 +164,7 @@ void main() {
 
     vec3 ray = makeRay(FOV, u_resolution.x/u_resolution.y, st);
     vec3 point = vec3(15., -5.5, 5.0) * 10.0;
-    // point = point + sin(u_time) * 5.0;
+    point = point + sin(u_time) * 20.0;
     mat3 view = look(point, vec3(0., -2., 1), normalize(vec3(0.1, 0.5, 0.0)));
     vec3 dir = view * ray;
     vec3 color = vec3(0.0);

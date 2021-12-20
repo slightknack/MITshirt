@@ -20,5 +20,5 @@ void main() {
     color = lerp(
         texture(u_previous,  coords, 0.),
         texture(u_texture_0, coords, 0.),
-        0.995);
+        0.8);
 }
