@@ -7,8 +7,8 @@ uniform sampler2D u_texture_0;
 uniform vec2 u_resolution;
 uniform float u_time;
 
-#define STEP 0.0005
-#define BLUR 10
+#define STEP 0.002
+#define BLUR 20
 <VERT>
 
 void main() {
@@ -21,6 +21,12 @@ void main() {
         #else
             new.y += pix;
         #endif
+
+        if (mod(new, vec2(1.0)) != new) {
+            total += total / (i + 1);
+            continue;
+        }
+
         total += texture(u_texture_0, new, 0.).r;
     }
     color = vec4(vec3(total / BLUR), 1.);

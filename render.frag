@@ -9,11 +9,11 @@ uniform float u_time;
 
 // CONSTANTS ----------
 
-#define START 0.0
+#define START 150.0
 #define END 1000.0
 #define STEPS 100
 #define EPSILON 0.001
-#define FOV 5.0
+#define FOV 7.0
 #define PIXEL (1.0 / u_resolution)
 
 // CAMERA ----------
@@ -75,16 +75,21 @@ float mit_logo(vec3 point) {
 
 // the entire scene
 float scene(vec3 point) {
+    point.z = mod(point.z + 6.0, 12.0) - 6.0;
     return mit_logo(point);
 }
 
 // the colors and stuff
 vec4 emission(vec3 point) {
     if (length(point) > 10.0) {
-        return vec4(1.0);
+        if (point.x > 1000.0) {
+            return vec4(vec3(10.0), 0.0);
+        } else {
+            return vec4(0.0);
+        }
     }
 
-    return vec4(vec3(0.), 0.0);
+    return vec4(vec3(1., 0., 0.), 0.0);
 }
 
 // RAY MARCHER ----------
@@ -164,8 +169,10 @@ void main() {
 
     vec3 ray = makeRay(FOV, u_resolution.x/u_resolution.y, st);
     vec3 point = vec3(15., -5.5, 5.0) * 10.0;
-    point = point + sin(u_time) * 20.0;
-    mat3 view = look(point, vec3(0., -2., 1), normalize(vec3(0.1, 0.5, 0.0)));
+    // point.z -= u_time * 5.0;
+    vec3 target = vec3(0., -2., 1);
+    // target.z -= u_time * 5.0;
+    mat3 view = look(point, target, normalize(vec3(0.1, 0.5, 0.0)));
     vec3 dir = view * ray;
     vec3 color = vec3(0.0);
 
