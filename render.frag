@@ -13,7 +13,7 @@ uniform float u_time;
 #define END 1000.0
 #define STEPS 100
 #define EPSILON 0.001
-#define FOV 5.0
+#define FOV 1.1
 #define PIXEL (1.0 / u_resolution)
 
 // CAMERA ----------
@@ -73,18 +73,32 @@ float mit_logo(vec3 point) {
     return logo;
 }
 
+float big_sphere(vec3 point) {
+    vec3 new = point;
+    new.x += 10.0;
+    new.y += 1.5;
+    return sphere(new, 10.0);
+}
+
 // the entire scene
 float scene(vec3 point) {
-    return mit_logo(point);
+    float sphere = big_sphere(point);
+
+    return min(mit_logo(point), sphere);
 }
 
 // the colors and stuff
 vec4 emission(vec3 point) {
     if (length(point) > 10.0) {
-        return vec4(1.0);
+        float height = sin(point.y / 20.0 + 5.0)*.5 +.5;
+        return vec4(0.8, 0.85, 1.0, 1.0) * height * 1.3;
     }
 
-    return vec4(vec3(0.), 0.0);
+    if (big_sphere(point) < EPSILON * 2.0) {
+        return vec4(vec3(1.0, 1., 1.), 1.0);
+    }
+
+    return vec4(vec3(2.0, 0.4, 0.), 0.0);
 }
 
 // RAY MARCHER ----------
@@ -163,9 +177,9 @@ void main() {
     st += jitter * PIXEL;
 
     vec3 ray = makeRay(FOV, u_resolution.x/u_resolution.y, st);
-    vec3 point = vec3(15., -5.5, 5.0) * 10.0;
-    // point = point + sin(u_time) * 5.0;
-    mat3 view = look(point, vec3(0., -2., 1), normalize(vec3(0.1, 0.5, 0.0)));
+    vec3 point = vec3(50., -20.5, 50.0) * 10.0;
+    // point = point + sin(u_time) * 200.0;
+    mat3 view = look(point, vec3(0., -1.8, 1), normalize(vec3(0.1, 0.5, 0.0)));
     vec3 dir = view * ray;
     vec3 color = vec3(0.0);
 
@@ -180,7 +194,7 @@ void main() {
         vec4 e = emission(point);
         vec3 normals = normal(point);
         if (random(st + u_time * 3.0) < e.a) {
-            dir = reflect_dir(dir, normals, 0.05, st + u_time * 4.0);
+            dir = reflect_dir(dir, normals, 0.01, st + u_time * 4.0);
         } else {
             dir = diffuse_dir(normals, st + u_time * 5.0);
         }
@@ -191,8 +205,8 @@ void main() {
 
     color /= 5.0;
     color -= 0.5;
-    color *= 2.0;
-    // color += 0.5;
+    color *= 5.0;
+    color += 0.1;
 
     // float keyLight = float(smoothstep((normals.x + normals.y) / 2.0 + 0.5, 0.4, 0.6) * 0.5 + 0.5);
     // color = vec3(pow(occ, 2.0) * keyLight);
