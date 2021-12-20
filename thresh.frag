@@ -12,5 +12,5 @@ void main() {
     float w = texture(u_texture_0, coords, 0.).x;
     float i = texture(u_texture_1, coords, 0.).x;
     float m = w * 0.28 + i * 0.7;
-    color = vec4(m > 0.58);
+    color = vec4(m > 0.55);
 }
