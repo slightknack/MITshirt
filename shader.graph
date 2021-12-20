@@ -1,18 +1,19 @@
-(let w 1000)
-(let h 800)
+(let w 1024)
+(let h 1024)
 
 (let frame  (shader     "render"  w h))
 (let avg    (shader-rec "avg"     w h frame))
 (let scaled (shader     "scale"   w h avg))
-; (let blur-x (shader-param
-;     ("blur" w h scaled)
-;     (ifdef "VERT" #f)))
-; (let blur (shader-param
-;     ("blur" w h blur-x)
-;     (ifdef "VERT" #t)))
-;
-; (let noise (shader "noise" w h))
-; (let grid (shader "grid" w h))
-; (let warp (shader "warp" w h noise grid))
-; (let thresh (shader "thresh" w h warp blur))
-(output scaled)
+
+(let blur-x (shader-param
+    ("blur" w h scaled)
+    (ifdef "VERT" #f)))
+(let blur (shader-param
+    ("blur" w h blur-x)
+    (ifdef "VERT" #t)))
+; (let more-blur (shader "median" w h scaled))
+
+(let thresh (shader "thresh2" w h blur))
+; (let tiled (shader "tile" w h thresh))
+
+(output thresh)

@@ -9,11 +9,11 @@ uniform float u_time;
 
 // CONSTANTS ----------
 
-#define START 0.0
+#define START 150.0
 #define END 1000.0
 #define STEPS 100
 #define EPSILON 0.001
-#define FOV 1.1
+#define FOV 7.19
 #define PIXEL (1.0 / u_resolution)
 
 // CAMERA ----------
@@ -82,23 +82,21 @@ float big_sphere(vec3 point) {
 
 // the entire scene
 float scene(vec3 point) {
-    float sphere = big_sphere(point);
-
-    return min(mit_logo(point), sphere);
+    point.z = mod(point.z + 5.0, 11.0) - 5.0;
+    return mit_logo(point);
 }
 
 // the colors and stuff
 vec4 emission(vec3 point) {
     if (length(point) > 10.0) {
-        float height = sin(point.y / 20.0 + 5.0)*.5 +.5;
-        return vec4(0.8, 0.85, 1.0, 1.0) * height * 1.3;
+        if (point.x > 1000.0) {
+            return vec4(vec3(10.0), 0.0);
+        } else {
+            return vec4(0.0);
+        }
     }
 
-    if (big_sphere(point) < EPSILON * 2.0) {
-        return vec4(vec3(1.0, 1., 1.), 1.0);
-    }
-
-    return vec4(vec3(2.0, 0.4, 0.), 0.0);
+    return vec4(vec3(1., 0., 0.), 0.0);
 }
 
 // RAY MARCHER ----------
@@ -177,9 +175,11 @@ void main() {
     st += jitter * PIXEL;
 
     vec3 ray = makeRay(FOV, u_resolution.x/u_resolution.y, st);
-    vec3 point = vec3(50., -20.5, 50.0) * 10.0;
-    // point = point + sin(u_time) * 200.0;
-    mat3 view = look(point, vec3(0., -1.8, 1), normalize(vec3(0.1, 0.5, 0.0)));
+    vec3 point = vec3(15., -5.5, 5.0) * 10.0;
+    vec3 target = vec3(0., -2., 1);
+    point.z -= u_time * 5.0;
+    target.z -= u_time * 5.0;
+    mat3 view = look(point, target, normalize(vec3(0.1812, 0.5, 0.0)));
     vec3 dir = view * ray;
     vec3 color = vec3(0.0);
 
