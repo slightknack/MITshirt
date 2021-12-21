@@ -49,7 +49,7 @@ float fbm (vec2 st) {
 
 void main() {
     vec2 new = coords * 4.0;
-    new.y += 14.0;
+    new.y += 15;
     color = vec4(
         fbm(new),
         fbm(coords * 4.0),

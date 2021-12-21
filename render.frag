@@ -13,7 +13,7 @@ uniform float u_time;
 #define END 1000.0
 #define STEPS 100
 #define EPSILON 0.001
-#define FOV 5.5
+#define FOV 4.7
 #define PIXEL (1.0 / u_resolution)
 
 // CAMERA ----------
@@ -51,10 +51,6 @@ float sphere(vec3 point, float radius) {
 
 // MIT logo
 float mit_logo(vec3 point) {
-    // point.y += point.z * 0.6 * sin(u_time);
-    // point.x += point.y * point.z * 0.07;
-    // point *= 0.9;
-
     float box5 = box((point + vec3(0., 2.0, -1.5)), vec3(1.0, 5, 1.0));
     float box6 = box((point + vec3(0., 1.25, -3.0)), vec3(1.0, 3.5, 1.0));
     float box7 = box((point + vec3(0., 2.0, -4.5)), vec3(1.0, 5, 1.0));
@@ -81,7 +77,11 @@ float scene(vec3 point) {
 // the colors and stuff
 vec4 emission(vec3 point) {
     if (length(point) > 10.0) {
-        return vec4(1.0);
+        // if (point.z - point.y < 0.) {
+            return vec4(1.0);
+        // } else {
+        //     return vec4(0.0);
+        // }
     }
 
     return vec4(vec3(0.), 0.0);
@@ -165,7 +165,7 @@ void main() {
     vec3 ray = makeRay(FOV, u_resolution.x/u_resolution.y, st);
     vec3 point = vec3(20., -5., 5.0) * 10.0;
     // point = point + sin(u_time) * 5.0;
-    mat3 view = look(point, vec3(0., -2., 1.3), normalize(vec3(0.1, 0.5, 0.0)));
+    mat3 view = look(point, vec3(0., -2.98, 1.0), normalize(vec3(0.1, 0.5, 0.0)));
     vec3 dir = view * ray;
     vec3 color = vec3(0.0);
 
