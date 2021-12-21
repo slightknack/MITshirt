@@ -22,11 +22,11 @@ void main() {
         color = vec4(0.0);
     }
 
-    if (gridx >= 41 && gridx <= 47 && gridy >= 2 && gridy <= 8) {
-        color = vec4(0.0);
-    }
-
-    if (gridx >= 2 && gridx <= 8 && gridy >= 31 && gridy <= 37) {
-        color = vec4(0.0);
-    }
+    // if (gridx >= 41 && gridx <= 47 && gridy >= 2 && gridy <= 8) {
+    //     color = vec4(0.0);
+    // }
+    //
+    // if (gridx >= 2 && gridx <= 8 && gridy >= 31 && gridy <= 37) {
+    //     color = vec4(0.0);
+    // }
 }
