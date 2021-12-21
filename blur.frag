@@ -8,7 +8,7 @@ uniform vec2 u_resolution;
 uniform float u_time;
 
 #define STEP 0.0004
-#define BLUR 15
+#define BLUR 1
 <VERT>
 
 void main() {

@@ -17,5 +17,5 @@ void main() {
     float grid =
         sin(coords.x * 3.14 * CELLS);
       // * sin(coords.y * 3.14 * CELLS * scale);
-    color = vec4(grid * 0.5 + 0.5);
+    color = vec4(vec3(grid * 0.5 + 0.5), 1.0);
 }

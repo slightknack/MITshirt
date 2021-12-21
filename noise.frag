@@ -52,8 +52,8 @@ void main() {
     new.y += 14.0;
     color = vec4(
         fbm(new),
-        fbm(coords * 4.0),
-        fbm(coords * 4.0),
-        fbm(coords * 4.0)
+        fbm(coords * 4.0 + 10.0),
+        fbm(coords * 4.0 + 20.0),
+        1.0
     );
 }

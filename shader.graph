@@ -19,4 +19,6 @@
 (let warp (shader "warp" w h noise grid))
 (let thresh (shader "thresh" w h warp blur))
 
+(let grad (shader "grad" w h warp))
+
 (output thresh)
