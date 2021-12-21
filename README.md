@@ -6,3 +6,5 @@ shadergarden run -w 500 -h 400
 ```
 
 You should see whatever the current state of the project is. Mainly putting this up here to have a backup.
+
+![A revision of the logo](frame-0000.png)
