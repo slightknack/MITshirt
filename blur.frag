@@ -7,8 +7,8 @@ uniform sampler2D u_texture_0;
 uniform vec2 u_resolution;
 uniform float u_time;
 
-#define STEP 0.0005
-#define BLUR 10
+#define STEP 0.0004
+#define BLUR 15
 <VERT>
 
 void main() {

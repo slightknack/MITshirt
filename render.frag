@@ -13,7 +13,7 @@ uniform float u_time;
 #define END 1000.0
 #define STEPS 100
 #define EPSILON 0.001
-#define FOV 42.0
+#define FOV 5.5
 #define PIXEL (1.0 / u_resolution)
 
 // CAMERA ----------
@@ -163,9 +163,9 @@ void main() {
     st += jitter * PIXEL;
 
     vec3 ray = makeRay(FOV, u_resolution.x/u_resolution.y, st);
-    vec3 point = vec3(20., -5., 5.0);
-    point = point + sin(u_time) * 5.0;
-    mat3 view = look(point, vec3(0., -2., 1), normalize(vec3(0.1, 0.5, 0.0)));
+    vec3 point = vec3(20., -5., 5.0) * 10.0;
+    // point = point + sin(u_time) * 5.0;
+    mat3 view = look(point, vec3(0., -2., 1.3), normalize(vec3(0.1, 0.5, 0.0)));
     vec3 dir = view * ray;
     vec3 color = vec3(0.0);
 

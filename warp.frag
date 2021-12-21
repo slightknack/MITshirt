@@ -8,7 +8,7 @@ uniform sampler2D u_texture_1; // grid
 uniform vec2 u_resolution;
 uniform float u_time;
 
-#define SCALE 0.5
+#define SCALE 1.0
 
 // warps the griddo!
 void main() {
