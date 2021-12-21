@@ -1,5 +1,5 @@
-(let w 2000)
-(let h 1600)
+(let w 500)
+(let h 400)
 
 (let frame  (shader     "render"  w h))
 (let avg    (shader-rec "avg"     w h frame))
