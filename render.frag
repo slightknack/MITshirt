@@ -77,11 +77,11 @@ float scene(vec3 point) {
 // the colors and stuff
 vec4 emission(vec3 point) {
     if (length(point) > 10.0) {
-        // if (point.z - point.y < 0.) {
-            return vec4(1.0);
-        // } else {
-        //     return vec4(0.0);
-        // }
+        if (point.z < 0.) {
+            return vec4(2.0);
+        } else {
+            return vec4(vec3(0.), 1.);
+        }
     }
 
     return vec4(vec3(0.), 0.0);
