@@ -16,9 +16,13 @@ void main() {
     float gridx = floor(coords.x * 50.0);
     float gridy = floor(coords.y * scale * 50.0);
 
+    if (gridy < 10 && gridx > 39) {
+        color = vec4 (0.0);
+    }
+
     if (gridx == -0 || gridx == 49) {
         color = vec4(0.0);
-    } else if (gridy < 10 || gridy == 39) {
+    } else if (gridy < 1 || gridy == 39) {
         color = vec4(0.0);
     }
 
